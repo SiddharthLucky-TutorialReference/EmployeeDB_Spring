@@ -1,38 +1,51 @@
 package lucky.restapi.employeeinfoservice.controller;
 
 import lucky.restapi.employeeinfoservice.model.Employees;
-import lucky.restapi.employeeinfoservice.service.EmployeeService;
+import lucky.restapi.employeeinfoservice.repository.EmployeeInterface;
+/*import lucky.restapi.employeeinfoservice.service.EmployeeService;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@Controller
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController
 {
-    private EmployeeService employeeService;
-
     @Autowired
-    public EmployeeController(EmployeeService employeeService)
-    {
-        this.employeeService = employeeService;
-    }
-
-    @GetMapping("/{empId}")
-    public Employees getEmployeeById(@PathVariable("empId") Long empId)
-    {
-        Optional<Employees> employee = employeeService.getAnEmployee_Id(empId);
-
-        return employee.get();
-    }
+    EmployeeInterface employeeInterface;
 
     @GetMapping("/all")
     public List<Employees> getAllEmployees()
     {
-        List<Employees> allEmployees = employeeService.getAllEmployees();
-        return allEmployees;
+        return employeeInterface.findAll();
+    }
+
+    @GetMapping("/get-employee/{emp_id}")
+    public Employees getEmployeeById(@PathVariable ("emp_id") int emp_Id)
+    {
+        Optional<Employees> employee = employeeInterface.findById(emp_Id);
+        if(employee.isPresent()) {
+            return employee.get();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    @PostMapping("/add-employees")
+    public String insertEmployees(@RequestBody Employees employees)
+    {
+        employeeInterface.save(employees);
+        return "Employee values inserted.";
+    }
+
+    @DeleteMapping("/remove-employee/{emp_id}")
+    public String removeEmployeeFromDb(@PathVariable ("emp_id") int emp_Id)
+    {
+        employeeInterface.deleteById(emp_Id);
+        return "Employee deleted from DB";
     }
 }

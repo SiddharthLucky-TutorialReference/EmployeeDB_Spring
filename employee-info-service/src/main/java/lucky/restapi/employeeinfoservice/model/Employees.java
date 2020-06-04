@@ -1,72 +1,32 @@
 package lucky.restapi.employeeinfoservice.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "Employees")
-public class Employees {
-
+@Table(name = "employees", schema = "employees")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class Employees
+{
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long empNo;
-  private java.sql.Date birthDate;
-  private String firstName;
-  private String lastName;
-  private String gender;
-  private java.sql.Date hireDate;
-
-
-  public long getEmpNo() {
-    return empNo;
+  /*@GeneratedValue(strategy = GenerationType.IDENTITY)*/
+  private int emp_no;
+  private Date birth_date;
+  private String first_name;
+  private String last_name;
+  public enum Gender {
+    M, F
   }
-
-  public void setEmpNo(long empNo) {
-    this.empNo = empNo;
-  }
-
-
-  public java.sql.Date getBirthDate() {
-    return birthDate;
-  }
-
-  public void setBirthDate(java.sql.Date birthDate) {
-    this.birthDate = birthDate;
-  }
-
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-
-  public String getGender() {
-    return gender;
-  }
-
-  public void setGender(String gender) {
-    this.gender = gender;
-  }
-
-
-  public java.sql.Date getHireDate() {
-    return hireDate;
-  }
-
-  public void setHireDate(java.sql.Date hireDate) {
-    this.hireDate = hireDate;
-  }
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
+  private Date hire_date;
 
 }

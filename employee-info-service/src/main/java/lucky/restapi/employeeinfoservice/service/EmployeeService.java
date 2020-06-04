@@ -1,3 +1,4 @@
+/*
 package lucky.restapi.employeeinfoservice.service;
 
 import java.util.*;
@@ -28,3 +29,4 @@ public class EmployeeService
         return employeeInterface.findById(empId);
     }
 }
+*/
