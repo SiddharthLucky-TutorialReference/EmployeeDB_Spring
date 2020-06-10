@@ -3,7 +3,6 @@ package lucky.restapi.departmentinfoservice.controller;
 import lucky.restapi.departmentinfoservice.model.Departments;
 import lucky.restapi.departmentinfoservice.repository.DepartmentInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -35,5 +34,12 @@ public class DepartmentController
     {
         departmentInterface.deleteById(dept_Id);
         return "The value is deleted successfully";
+    }
+
+    @GetMapping("/department/{dept_id}")
+    public Optional<Departments> getDepartmentById(@PathVariable("dept_id") String dept_Id)
+    {
+        Optional<Departments> departments = departmentInterface.findById(dept_Id);
+        return departments;
     }
 }
