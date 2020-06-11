@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Department} from '../model/department';
+import {Component, OnInit} from '@angular/core';
 import {DepartmentserviceService} from '../service/departmentservice.service';
+import {Department} from '../department';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-displaydepartment',
@@ -8,13 +9,18 @@ import {DepartmentserviceService} from '../service/departmentservice.service';
   styleUrls: ['./displaydepartment.component.css']
 })
 export class DisplaydepartmentComponent implements OnInit {
-
-  departments: any;
+  departmentsArray: Observable<Department[]>;
+  department: Department;
   constructor(private departmentservice: DepartmentserviceService) { }
 
-  ngOnInit(): void {
-    const resp1 = this.departmentservice.getAllDepartments();
-    resp1.then((data: any) => this.departments = data);
+  ngOnInit() {
+    this.getDepartmentUsingId_Service();
   }
 
+  getDepartmentUsingId_Service(){
+    /*this.departmentsArray = this.departmentservice.getAllDepartments();*/
+    this.departmentservice.getDepat_ById()
+      .subscribe((data: Department) => this.department = data);
+    console.log('Resultant department ' + this.department);
+  }
 }

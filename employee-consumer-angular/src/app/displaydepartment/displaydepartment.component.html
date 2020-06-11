@@ -1,4 +1,16 @@
 <p>displaydepartment works!</p>
-<ul *ngFor=" let department of departments">
-  <li>{{department | json}}</li>
-</ul>
+<div *ngFor="let departments of departmentsArray | async">
+  <tr>
+    <td>--</td>
+    <td>{{departments.deptno}}</td>
+    <td>{{departments.deptname}}</td>
+  </tr>
+</div>
+<div>
+  <p>Just to see if this works</p>
+  <tr>
+    <td>--</td>
+    <td>{{department.deptname}}</td>
+    <!--<td>{{department.deptname}}</td>-->
+  </tr>
+</div>

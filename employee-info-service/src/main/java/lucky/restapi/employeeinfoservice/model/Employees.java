@@ -28,5 +28,4 @@ public class Employees
   @Enumerated(EnumType.STRING)
   private Gender gender;
   private Date hire_date;
-
 }
